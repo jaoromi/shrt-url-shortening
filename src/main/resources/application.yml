@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: local
+
+  main:
+    web-environment: true
+
+  data:
+    mongodb:
+      port: 27017

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<form id="inputForm" action="http://localhost:8080/short-url">
+    URL 등록 : <input name="originalUrl"/><br>
+    <input type="submit" value="등록" >
+</form>
+<div id="registeredUrl"></div>
+
+<script>
+    $("#inputForm").submit(function( event ) {
+        event.preventDefault();
+
+        var $form = $( this );
+        var originalUrl = $form.find( "input[name='originalUrl']" ).val(),
+            url = $form.attr( "action" );
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+                originalUrl: originalUrl
+            })
+        })
+            .done(function (data) {
+                alert('등록되었습니다');
+                $("#registeredUrl").text(JSON.stringify(data));
+            });
+    });
+</script>
+</body>
+</html>
