@@ -6,7 +6,7 @@ import lombok.Data;
 public class AdminUserDTO {
 
     /**
-     * 로그인 ID
+     * Login ID
      */
     private String id;
 

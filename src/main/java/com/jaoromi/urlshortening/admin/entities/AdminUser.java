@@ -3,12 +3,17 @@ package com.jaoromi.urlshortening.admin.entities;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "admin_user", indexes = {
@@ -18,7 +23,7 @@ import java.io.Serializable;
 })
 @Data
 @EqualsAndHashCode(callSuper = false, of = "id")
-public class AdminUser implements Serializable {
+public class AdminUser {
 
     public static final String LOGIN_REGEX = "^[_'.@A-Za-z0-9-]*$";
 
@@ -44,4 +49,5 @@ public class AdminUser implements Serializable {
     @Size(max = 100)
     @Column(length = 100)
     private String email;
+
 }

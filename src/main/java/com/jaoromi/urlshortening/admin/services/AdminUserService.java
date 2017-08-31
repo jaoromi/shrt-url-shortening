@@ -5,6 +5,9 @@ import com.jaoromi.urlshortening.admin.entities.AdminUser;
 import com.jaoromi.urlshortening.admin.mappers.AdminUserMapper;
 import com.jaoromi.urlshortening.admin.repositories.AdminUserRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
