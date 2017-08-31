@@ -1,0 +1,8 @@
+[[resources-api-admin-users]]
+= Management Admin Users
+
+include::{snippets}/admin-user-endpoint-test/register/method-path.adoc[]
+
+include::{snippets}/admin-user-endpoint-test/register/description.adoc[]
+
+include::{snippets}/admin-user-endpoint-test/register/section.adoc[]
