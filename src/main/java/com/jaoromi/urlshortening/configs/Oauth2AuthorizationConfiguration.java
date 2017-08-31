@@ -1,4 +1,4 @@
-package com.jaoromi.urlshortening.shrt.configs;
+package com.jaoromi.urlshortening.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -18,10 +18,10 @@ public class Oauth2AuthorizationConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("test-trusted-client")
+                .withClient("admin-trusted-client")
                 .authorizedGrantTypes("client_credentials", "password")
                 .authorities("ROLE_TRUSTED_CLIENT")
-                .secret("test-secret");
+                .secret("fab860495e3c888236ead2f15790215e20d0db2e61a084ed492e8d04c876e07a");
     }
 
 }
