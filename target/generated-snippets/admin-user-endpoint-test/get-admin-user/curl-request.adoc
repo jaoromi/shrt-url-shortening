@@ -1,0 +1,4 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/oauth/token' -i -u 'admin-web:3382ad5ec99e330b8bf8145feba2c1804a479cc3d0312a0e782289a581eb1696' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=test&password=&grant_type=password&scope=read+write&client_id=admin-web&client_secret=3382ad5ec99e330b8bf8145feba2c1804a479cc3d0312a0e782289a581eb1696'
+----

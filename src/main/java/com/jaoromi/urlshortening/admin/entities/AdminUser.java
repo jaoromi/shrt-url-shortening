@@ -1,7 +1,10 @@
 package com.jaoromi.urlshortening.admin.entities;
 
+import com.jaoromi.urlshortening.admin.entities.converters.GrantedAuthoritiesConverter;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Tolerate;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,8 +13,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,8 +23,9 @@ import java.util.List;
         @Index(name = "user_email_idx", columnList = "email", unique = true)
 })
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = false, of = "id")
-public class AdminUser {
+public class AdminUser implements UserDetails {
 
     public static final String LOGIN_REGEX = "^[_'.@A-Za-z0-9-]*$";
 
@@ -50,4 +52,46 @@ public class AdminUser {
     @Column(length = 100)
     private String email;
 
+    @Column
+    @Convert(converter = GrantedAuthoritiesConverter.class)
+    private List<GrantedAuthority> authorities;
+
+    @Column
+    @Builder.Default
+    private boolean enabled = true;
+
+    @Tolerate
+    public AdminUser() {
+        this.enabled = true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.id;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }

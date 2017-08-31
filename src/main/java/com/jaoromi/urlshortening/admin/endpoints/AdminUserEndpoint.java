@@ -29,11 +29,11 @@ public class AdminUserEndpoint {
     )
     public ResponseEntity<Void> register(@RequestBody AdminUserDTO adminUser) {
 
-        AdminUserDTO savved = service.register(adminUser);
+        AdminUserDTO saved = service.register(adminUser);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savved.getId()).toUri();
+                .buildAndExpand(saved.getId()).toUri();
 
         return ResponseEntity.status(HttpStatus.CREATED).location(location).build();
     }

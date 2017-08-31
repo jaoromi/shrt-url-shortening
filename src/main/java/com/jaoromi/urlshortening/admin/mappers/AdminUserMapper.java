@@ -5,8 +5,13 @@ import com.jaoromi.urlshortening.admin.entities.AdminUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-@Mapper(componentModel = "spring", uses = {})
+import java.util.ArrayList;
+import java.util.List;
+
+@Mapper(componentModel = "spring")
 public interface AdminUserMapper {
 
     @Mappings({
@@ -14,5 +19,16 @@ public interface AdminUserMapper {
     })
     AdminUserDTO entityToDTO(AdminUser entity);
 
+    @Mappings({
+            @Mapping(target = "authorities", constant = "ROLE_ADMIN"),
+            @Mapping(target = "enabled", ignore = true)
+    })
     AdminUser dtoToEntity(AdminUserDTO dto);
+
+    default List<GrantedAuthority> stringToGrantedAuthorities(String authority) {
+        final List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(authority));
+
+        return authorities;
+    }
 }

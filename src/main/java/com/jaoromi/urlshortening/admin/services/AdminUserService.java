@@ -8,11 +8,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class AdminUserService {
@@ -25,6 +28,16 @@ public class AdminUserService {
 
     @Inject
     private PasswordEncoder passwordEncoder;
+
+    @PostConstruct
+    public void init() {
+        repository.save(AdminUser.builder()
+                .id("master")
+                .password(passwordEncoder.encode("master1234!@#$"))
+                .name("마스터관리자")
+                .enabled(true)
+                .build());
+    }
 
     @Transactional
     public AdminUserDTO register(AdminUserDTO dto) {

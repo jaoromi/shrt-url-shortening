@@ -1,0 +1,30 @@
+[[resources-admin-user-endpoint-test-get-admin-user]]
+=== Post Access Token
+
+include::{snippets}/admin-user-endpoint-test/get-admin-user/method-path.adoc[]
+
+include::{snippets}/admin-user-endpoint-test/get-admin-user/description.adoc[]
+
+==== Path parameters
+
+include::{snippets}/admin-user-endpoint-test/get-admin-user/path-parameters.adoc[]
+
+==== Query parameters
+
+include::{snippets}/admin-user-endpoint-test/get-admin-user/request-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/admin-user-endpoint-test/get-admin-user/request-fields.adoc[]
+
+==== Response fields
+
+include::{snippets}/admin-user-endpoint-test/get-admin-user/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/admin-user-endpoint-test/get-admin-user/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/admin-user-endpoint-test/get-admin-user/http-response.adoc[]
