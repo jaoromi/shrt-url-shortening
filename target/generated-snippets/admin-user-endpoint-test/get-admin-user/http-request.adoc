@@ -1,0 +1,9 @@
+[source,http,options="nowrap"]
+----
+POST /oauth/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic YWRtaW4td2ViOjMzODJhZDVlYzk5ZTMzMGI4YmY4MTQ1ZmViYTJjMTgwNGE0NzljYzNkMDMxMmEwZTc4MjI4OWE1ODFlYjE2OTY=
+Host: localhost:8080
+
+username=test&password=&grant_type=password&scope=read+write&client_id=admin-web&client_secret=3382ad5ec99e330b8bf8145feba2c1804a479cc3d0312a0e782289a581eb1696
+----
