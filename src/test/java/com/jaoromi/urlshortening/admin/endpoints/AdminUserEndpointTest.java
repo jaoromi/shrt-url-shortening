@@ -1,27 +1,28 @@
 package com.jaoromi.urlshortening.admin.endpoints;
 
 import com.jaoromi.urlshortening.shrt.testsupport.MockMvcBase;
+import org.junit.Test;
 
-public class AdminUserEndpointTest {
+public class AdminUserEndpointTest extends MockMvcBase {
 
     //@Before
     public void setUp() throws Exception {
     }
 
-    //@Test
+    @Test
     public void register() throws Exception {
         //mockMvc.perform(post("/admin/users"));
     }
 
-    //@Test
+    @Test
     public void getAdminUser() throws Exception {
     }
 
-    //@Test
+    @Test
     public void updateAdminUser() throws Exception {
     }
 
-    //@Test
+    @Test
     public void deleteAdminUser() throws Exception {
     }
 

@@ -24,4 +24,4 @@ src/main/resources/static/shrot-url-post-form.html 을 브라우저에서 실행
 
 <h2>해결안된 이슈</h2>
 1. embedded mongodb 의 Graceful shutdown<br>
-2. URL 등록 시 동시성 이슈에 대한 처리
+
