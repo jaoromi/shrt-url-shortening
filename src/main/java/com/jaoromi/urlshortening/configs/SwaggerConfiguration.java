@@ -1,4 +1,4 @@
-package com.jaoromi.urlshortening.shrt.configs;
+package com.jaoromi.urlshortening.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

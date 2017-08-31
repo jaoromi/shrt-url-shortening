@@ -1,5 +1,6 @@
-package com.jaoromi.urlshortening.shrt;
+package com.jaoromi.urlshortening;
 
+import com.jaoromi.urlshortening.ShrtUrlShorteningApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 

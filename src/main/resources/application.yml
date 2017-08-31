@@ -5,6 +5,9 @@ spring:
   profiles:
     active: local
 
+  datasource.url: jdbc:h2:./db/testDb
+  jpa.hibernate.ddl-auto: create
+
   main:
     web-environment: true
 

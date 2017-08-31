@@ -1,13 +1,21 @@
 buildscript {
 	ext {
 		springBootVersion = '1.5.6.RELEASE'
+        mapstructVersion = "1.2.0.CR1"
+        lombokVersion = "1.16.14"
 	}
 	repositories {
+        jcenter()
 		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
 	}
+}
+
+plugins {
+    id 'net.ltgt.apt' version '0.9'
 }
 
 apply plugin: 'java'
@@ -15,22 +23,44 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
+apply plugin: 'org.asciidoctor.convert'
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
 
 repositories {
 	mavenCentral()
 }
 
 configurations {
+    jsondoclet
 	providedRuntime
 }
 
+ext {
+    snippetsDir = file("$buildDir/generated-snippets")
+    javadocJsonDir = file("$buildDir/generated-javadoc-json")
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir "generated/source/apt/main"
+		}
+	}
+
+    test.compileClasspath += configurations.compileOnly
+    test.runtimeClasspath += configurations.compileOnly
+}
+
 dependencies {
+    apt "org.mapstruct:mapstruct-processor:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}"
+    compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
     compile('javax.inject:javax.inject:1')
     compile('org.apache.commons:commons-lang3:3.6')
-	compileOnly('org.projectlombok:lombok')
+	compileOnly("org.projectlombok:lombok:${lombokVersion}")
 	compile('org.springframework.boot:spring-boot-starter-cache')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
@@ -44,7 +74,49 @@ dependencies {
 	runtime('com.h2database:h2')
     runtime('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 	testCompile('org.springframework.security:spring-security-test')
+    testCompile group: 'capital.scalable', name: 'spring-auto-restdocs-core', version: '1.0.8'
+    jsondoclet group: 'capital.scalable', name: 'spring-auto-restdocs-json-doclet', version: '1.0.8'
+}
+
+task jsonDoclet(type: Javadoc, dependsOn: compileJava) {
+    source = sourceSets.main.allJava
+    classpath = sourceSets.main.compileClasspath
+    destinationDir = javadocJsonDir
+    options.docletpath = configurations.jsondoclet.files.asType(List)
+    options.doclet = 'capital.scalable.restdocs.jsondoclet.ExtractDocumentationAsJsonDoclet'
+    options.memberLevel = JavadocMemberLevel.PACKAGE
+    options.encoding = "UTF-8"
+}
+
+test {
+    systemProperty 'org.springframework.restdocs.outputDir', snippetsDir
+    systemProperty 'org.springframework.restdocs.javadocJsonDir', javadocJsonDir
+	systemProperty 'file.encoding', 'UTF8'
+
+    dependsOn jsonDoclet
+}
+
+asciidoctor {
+    sourceDir = file('src/main/asciidoc')
+    outputDir = file("$buildDir/generated-docs")
+    options backend: 'html', doctype: 'book'
+    attributes 'source-highlighter': 'highlightjs', 'snippets': snippetsDir
+
+    dependsOn test
+}
+
+asciidoctor.doLast {
+    copy {
+        from file("$buildDir/generated-docs/html5")
+        into file("$sourceSets.main.output.classesDir/public")
+        include 'index.html'
+    }
+}
+
+jar {
+    dependsOn asciidoctor
 }

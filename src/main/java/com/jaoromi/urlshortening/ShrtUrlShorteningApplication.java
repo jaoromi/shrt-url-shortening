@@ -1,4 +1,4 @@
-package com.jaoromi.urlshortening.shrt;
+package com.jaoromi.urlshortening;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
