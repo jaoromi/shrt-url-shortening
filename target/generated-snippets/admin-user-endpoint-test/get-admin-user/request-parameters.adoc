@@ -1,9 +1,0 @@
-|===
-|Parameter|Type|Optional|Description
-
-|parameters
-|Map
-|false
-|
-
-|===

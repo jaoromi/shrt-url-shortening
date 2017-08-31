@@ -1,0 +1,19 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.ajoberstar:gradle-git:1.1.0'
+    }
+}
+
+apply plugin: 'org.ajoberstar.github-pages'
+
+githubPages {
+    //repoUri = 'git@github.com:jaoromi/shrt-url-shortening.git'
+    repoUri = 'https://github.com/jaoromi/shrt-url-shortening.git'
+    pages {
+        from(file('build/generated-docs/html5'))
+    }
+}
