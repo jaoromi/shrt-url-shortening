@@ -16,13 +16,16 @@ URL을 8자 이하로 조정하기 위해 인식성을 떨어지더라도 원본
 **6-7:** 해쉬 인덱스<br>
 **8:** 해쉬 내의 카운드 인덱스<br>
 
-<h2>유사 단어의 개선</h2>
+### API Document
+https://jaoromi.github.io/shrt-url-shortening/shortening-url.html
+
+### 유사 단어의 개선
 유사단어의 길이를 4글자로 줄이는 대신, 가독성을 높이기 위하여, 사전기반 유사 단어를 함께 사용하도록 하였습니다.<br>
 
-<h2>URL 등록 Test file HTML</h2>
+### URL 등록 Test file HTML
 src/main/resources/static/shrot-url-post-form.html 을 브라우저에서 실행시켜서 확인할 수 있습니다.<br>
 
-<h2>해결안된 이슈</h2>
+### 해결안된 이슈
 1. embedded mongodb 의 Graceful shutdown<br>
 
 # 관리자 계정 관리 API 문서
