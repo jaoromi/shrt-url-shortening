@@ -6,13 +6,13 @@ import com.jaoromi.urlshortening.testsupport.MockMvcBase;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 
 import javax.inject.Inject;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -28,6 +28,7 @@ public class AdminUserEndpointTest extends MockMvcBase {
         super.setUp();
 
         passwordMap.put("test", "testpassword");
+        passwordMap.put("test3", "testpassword3");
     }
 
     @Test
@@ -65,10 +66,34 @@ public class AdminUserEndpointTest extends MockMvcBase {
 
     @Test
     public void updateAdminUser() throws Exception {
+        AdminUser data = AdminUser.builder()
+                .id("test")
+                .name("테스트2")
+                .email("test@test2.com")
+                .phone("010-1234-5670")
+                .build();
+        mockMvc.perform(put("/api/admin/users/test")
+                .with(userToken("test"))
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsString(data)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is("test")))
+                .andExpect(jsonPath("$.name", is("테스트2")))
+                .andExpect(jsonPath("$.email", is("test@test2.com")))
+                .andExpect(jsonPath("$.phone", is("010-1234-5670")))
+                .andExpect(jsonPath("$.password", nullValue()))
+                .andReturn();
     }
 
     @Test
+    @Sql("/test-init.sql")
     public void deleteAdminUser() throws Exception {
+        mockMvc.perform(delete("/api/admin/users/test3")
+                .with(userToken("test3")))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
     }
 
 }

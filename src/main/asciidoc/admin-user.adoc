@@ -1,8 +1,18 @@
-[[resources-api-admin-users]]
-= Management Admin Users
+[[resources-admin-users]]
+== Management Admin Users
 
-include::{snippets}/admin-user-endpoint-test/register/method-path.adoc[]
-
-include::{snippets}/admin-user-endpoint-test/register/description.adoc[]
+[[resources-admin-users-register]]
 
 include::{snippets}/admin-user-endpoint-test/register/section.adoc[]
+
+[[resources-admin-user-get-admin-users]]
+
+include::{snippets}/admin-user-endpoint-test/get-admin-user/section.adoc[]
+
+[[resources-admin-user-delete-admin-users]]
+
+include::{snippets}/admin-user-endpoint-test/delete-admin-user/section.adoc[]
+
+[[resources-admin-user-updaet-admin-users]]
+
+include::{snippets}/admin-user-endpoint-test/update-admin-user/section.adoc[]

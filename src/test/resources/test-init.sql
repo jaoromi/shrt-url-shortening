@@ -1,0 +1,1 @@
+insert into admin_user (authorities, email, enabled, name, password, phone, id) values ('ROLE_ADMIN', 'test3@test.com', true, '테스트3', '$2a$10$vLpXWBxLtIDNrkVsTQRVQOFK.QGM0aHHDT.oWDG5CDjkKHVwWLOuC', '010-1234-9999', 'test3')

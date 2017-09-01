@@ -1,0 +1,10 @@
+[[resources-short-url]]
+== URL Shortening Service API
+
+[[resources-short-url-post-short-url]]
+
+include::{snippets}/short-url-endpoint-test/post-short-url/section.adoc[]
+
+[[resources-redirect-short-url-to-original]]
+
+include::{snippets}/short-url-endpoint-test/redirect-short-url-to-original/section.adoc[]
