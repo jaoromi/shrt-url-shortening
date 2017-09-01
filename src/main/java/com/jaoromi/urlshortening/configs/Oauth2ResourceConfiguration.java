@@ -14,7 +14,7 @@ public class Oauth2ResourceConfiguration extends ResourceServerConfigurerAdapter
         http.requestMatchers().antMatchers("/**")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/admin/**").authenticated()
+                .antMatchers("/api/admin/**").authenticated()
                 .anyRequest().permitAll();
     }
 }
