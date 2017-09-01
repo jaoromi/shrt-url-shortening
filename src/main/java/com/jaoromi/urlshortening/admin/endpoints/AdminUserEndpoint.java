@@ -25,7 +25,7 @@ public class AdminUserEndpoint {
     @RequestMapping(
             value = {"/admin/users"},
             method = {RequestMethod.POST},
-            produces = {"application/json"}
+            consumes = {"application/json"}
     )
     public ResponseEntity<Void> register(@RequestBody AdminUserDTO adminUser) {
 
@@ -62,7 +62,7 @@ public class AdminUserEndpoint {
     @RequestMapping(
             value = {"/admin/users/{id}"},
             method = {RequestMethod.PUT},
-            produces = {"application/json"}
+            consumes = {"application/json"}
     )
     @ResponseBody
     public AdminUserDTO updateAdminUser(
@@ -80,8 +80,7 @@ public class AdminUserEndpoint {
      */
     @RequestMapping(
             value = {"/admin/users/{id}"},
-            method = {RequestMethod.DELETE},
-            produces = {"application/json"}
+            method = {RequestMethod.DELETE}
     )
     public ResponseEntity<Void> deleteAdminUser(@PathVariable("id") String id) {
         service.delete(id);
