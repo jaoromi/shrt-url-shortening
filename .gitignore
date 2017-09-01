@@ -1,6 +1,5 @@
 .gradle
 /build/
-/out/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -16,6 +15,8 @@
 *.iws
 *.iml
 *.ipr
+/out/
+/target/
 
 ### NetBeans ###
 nbproject/private/

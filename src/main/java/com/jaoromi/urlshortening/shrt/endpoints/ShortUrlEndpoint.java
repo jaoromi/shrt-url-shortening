@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -38,7 +39,8 @@ public class ShortUrlEndpoint {
             method = {RequestMethod.POST},
             produces = {"application/json"}
     )
-    public ResponseEntity<ShortUrlDTO> postShortUrl(@RequestBody ShortUrlDTO data) {
+    public ResponseEntity<ShortUrlDTO> postShortUrl(HttpServletRequest servletRequest,
+                                                    @RequestBody ShortUrlDTO data) {
         try {
             URI originalUrl = new URI(data.getOriginalUrl());
 
@@ -46,13 +48,22 @@ public class ShortUrlEndpoint {
                 throw new IllegalArgumentException("not melformed original url: " + data.getOriginalUrl());
             }
 
+            data = shortUrlService.register(originalUrl);
+            data.setShortUrl(getServletRoot(servletRequest) + "/" + data.getShortUrl());
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(shortUrlService.register(originalUrl));
+                    .location(URI.create(data.getShortUrl()))
+                    .body(data);
         }
         catch (URISyntaxException e) {
             throw new IllegalArgumentException("not melformed original url: " + data.getOriginalUrl());
         }
+    }
+
+    private String getServletRoot(HttpServletRequest servletRequest) {
+        StringBuffer buffer = servletRequest.getRequestURL();
+        buffer.delete(buffer.length() - servletRequest.getPathInfo().length(), buffer.length());
+        return buffer.toString();
     }
 
 }
